@@ -13,3 +13,19 @@ fullTable: .asciiz "\nhash table is full"
 posKey: .asciiz "\npos key\n"
 quotes: .asciiz " "
 newLine: .asciiz "\n"
+
+    .text
+    .globl main
+
+main: 
+
+    #keys
+    li $s0,0 
+    
+    #i
+    li $t1,0 
+    
+    #N
+    li $t2,10 
+    
+    li $t0,0 
