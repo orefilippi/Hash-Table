@@ -29,3 +29,14 @@ main:
     li $t2,10 
     
     li $t0,0 
+
+for:
+
+    #initialize 10 positions of stack with zeros
+    
+    bgt $t1,$t2,exit	
+    addi $sp, $sp, -4	
+    sw  $t0, 0($sp)		
+    addi $t1,$t1,1		
+
+    j for
