@@ -40,3 +40,31 @@ for:
     addi $t1,$t1,1		
 
     j for
+
+exit:
+    
+    #print menu    
+    la $a0,menu
+    li $v0, 4          
+    syscall 
+
+    la $a0,choise
+    li $v0, 4         
+    syscall
+    
+    #read choise from user    
+    li $v0,5
+    syscall          
+    
+    #t0 = choise
+    move $t0,$v0 
+    
+    #if choice>4	go to exit
+	  bgt $t0, 4, exit	
+    
+    #choises
+    
+    beq $t0,1,choise1   	
+    beq $t0,2,choise2   	
+    beq $t0,3,displaytable  
+    beq $t0,4,choise4   	 
