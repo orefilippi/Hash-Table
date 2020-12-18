@@ -68,3 +68,25 @@ exit:
     beq $t0,2,choise2   	
     beq $t0,3,displaytable  
     beq $t0,4,choise4   	 
+
+choise1:
+
+    la $a0,readKey		
+    li $v0, 4            
+    syscall            
+    
+    #read key from user
+    li $v0,5       
+    syscall
+
+    move $s7, $v0   
+    
+    #if key>0 go to insert key
+    bgt $s7,$zero,insertkey     
+    
+    #if key<=0 print key must be greater than zero
+    la $a0,wrongKey
+    li $v0, 4            
+    syscall
+
+    j choise1
