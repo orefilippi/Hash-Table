@@ -90,3 +90,20 @@ choise1:
     syscall
 
     j choise1
+
+choise2:
+    
+    la $a0,readKeyFor
+    li $v0,4          
+    syscall
+    
+    #read key to search for
+    li $v0,5          	
+    syscall
+
+    move $s7, $v0   
+     
+    #go to function findkey
+    jal findkey  
+    
+    #s1=return of function 
