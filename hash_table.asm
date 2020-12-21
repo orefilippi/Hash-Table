@@ -107,3 +107,36 @@ choise2:
     jal findkey  
     
     #s1=return of function 
+
+    #if key doesn't exist in hash table go to notfindkey
+    beq $s1,-1,if_notfindkey	
+    
+    #print key value
+    la $a0,keyValue
+    li $v0, 4 
+    syscall
+
+    mul $s1,$s1,4
+    add $t0, $sp, $s1
+    div $s1,$s1,4
+    lw $t1,($t0)   
+    move $a0, $t1  
+
+    li $v0,1
+    syscall
+
+    la $a0,newLine		
+    li $v0, 4 
+    syscall
+
+    la $a0,tablePos		
+    li $v0, 4 
+    syscall
+
+    move $a0, $s1 
+    
+    #print position of value
+    li $v0,1
+    syscall
+
+    j exit
