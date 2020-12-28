@@ -140,3 +140,12 @@ choise2:
     syscall
 
     j exit
+
+if_notfindkey:
+
+    #print key doesn't exist in hash table
+    la $a0,notFindKey		
+    li $v0, 4
+    syscall
+
+    j exit
