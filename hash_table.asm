@@ -149,3 +149,9 @@ if_notfindkey:
     syscall
 
     j exit
+
+choise4:
+    
+    #exit 
+    li $v0, 10		
+    syscall
