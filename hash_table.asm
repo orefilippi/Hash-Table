@@ -155,3 +155,58 @@ choise4:
     #exit 
     li $v0, 10		
     syscall
+    
+ 
+insertkey:
+
+
+    #go to function findkey
+
+    jal findkey  
+
+    
+
+    #s1=return of function
+
+    
+
+    #if s1!=-1 means key is already in hash table
+
+    bne $s1,-1,keyAlready 
+
+    
+
+    #if keys>=10 means table is full
+
+    bge $s0,10,tableFull  
+
+    
+
+    #go to hashfunction
+
+    jal hashfunction   
+
+    
+
+    #s4=return of hashfunction
+
+  
+
+    mul $s4,$s4,4
+
+    add $t9,$sp,$s4
+
+    div $s4,$s4,4
+
+    
+
+    #store key to stack
+
+    sw $s7,($t9)
+
+    addi $s0,$s0,1
+
+
+
+
+    j exit
