@@ -207,6 +207,123 @@ insertkey:
     addi $s0,$s0,1
 
 
-
-
     j exit
+    
+findkey:
+     
+    #i
+    li $t0,0 
+    
+    #found
+    li $t1,0     
+    
+    #position %= 10
+    rem $s1, $s7, 10   
+
+while:
+    
+    bge $t0,10,exitWhileNotfound      
+    
+    #i++
+    addi $t0,$t0,1   
+
+    mul $s1,$s1,4   
+    add $s2,$sp,$s1  
+    div $s1,$s1,4  
+    
+    #load value of position in stack
+    lw $s3,($s2)  
+
+    beq $s3,$s7,exitWhilefound 
+    
+    #position++
+    addi $s1,$s1,1 
+    
+    #position %= 10
+    rem $s1,$s1,10    
+
+    j while
+
+exitWhilefound:
+
+    #return position
+    jr $ra  
+
+exitWhileNotfound:
+
+    #return -1 if key not found
+    li $s1,-1  
+    jr $ra  
+
+
+hashfunction:
+    
+    #position %= 10
+    rem $s4,$s7,10     
+
+_while:
+
+    mul $s4,$s4,4    
+    add $t3, $sp, $s4
+    div $s4,$s4,4
+    
+    #load value of position in stack
+    lw $t2,($t3)  
+
+    beq $t2,0,_exitWhile 
+
+    addi $s4,$s4,1  
+    rem $s4,$s4,10
+        
+    j _while
+
+_exitWhile:
+    
+    #return position 
+    jal $ra 
+
+displaytable:
+    
+    #i=0
+    li $s6,0  
+
+    la $a0,posKey
+    li $v0, 4
+    syscall
+
+_for:
+
+    bgt $s6,9,exit
+
+    la $a0,quotes
+    li $v0, 4
+    syscall
+
+    move $a0, $s6
+    
+    #print position in table
+    li $v0, 1
+    syscall
+
+    la $a0,quotes
+    li $v0, 4
+    syscall
+
+    mul $s6,$s6,4
+    add $s5,$sp,$s6
+    div $s6,$s6,4
+
+    lw $a0,($s5)
+    
+    #print key
+    li $v0, 1
+    syscall
+
+    la $a0,newLine
+    li $v0, 4
+    syscall
+    
+    #i++
+    addi $s6,$s6,1  
+
+    j _for
